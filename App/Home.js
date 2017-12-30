@@ -61,9 +61,7 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     justifyContent: 'space-around',
-    //alignItems: 'center',
     backgroundColor: '#F5FCFF',
-    paddingTop: 50,
     paddingBottom: 50,
   },
   label: {

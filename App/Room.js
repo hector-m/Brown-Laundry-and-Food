@@ -17,6 +17,7 @@ export default class Room extends Component<{}> {
             loading: false,
             Washers: [],
             Dryers: [],
+            Error: null,
         };
     }
 
@@ -41,7 +42,9 @@ export default class Room extends Component<{}> {
                 return responseJson;
             })
             .catch((error) => {
-                console.error(error);
+                this.setState({ Error:
+                    <Image source={require('../img/error.png')} style={styles.error}/>
+                });
             });
     }
 
@@ -77,26 +80,26 @@ export default class Room extends Component<{}> {
 
 
     render() {
-        return (
-            <LinearGradient colors={['#9A8478', '#1E130C']} locations={[0,0.55]} style={styles.background}>
-                <ScrollView>
-                <Text style={styles.label}>Washers</Text>
-                <MachinesDisplay machines={this.state.Washers} />
-                <Text style={styles.label}>Dryers</Text>
-                <MachinesDisplay machines={this.state.Dryers} />
-                </ ScrollView>
-            </LinearGradient>
-            // <ListView
-            //         enableEmptySections
-            //         horizontal
-            //         dataSource={this.state.availWashers}
-            //         renderRow={(data) => <View style={styles.item}>
-            //                               <Image source={require('../img/available.png')} style={styles.stretch} />
-            //                               <Text style={styles.label}>{data} min</Text>
-            //                               </View>}
-            //         />
+        if (this.state.Error == null) {
+            return (
+                <LinearGradient colors={['#9A8478', '#1E130C']} locations={[0,0.55]} style={styles.background}>
+                    <ScrollView>
+                    <Text style={styles.label}>Washers</Text>
+                    <MachinesDisplay machines={this.state.Washers} />
+                    <Text style={styles.label}>Dryers</Text>
+                    <MachinesDisplay machines={this.state.Dryers} />
+                    </ ScrollView>
+                </LinearGradient>
+            );
+        } else {
+            return (
+                <LinearGradient colors={['#9A8478', '#1E130C']} locations={[0,0.55]} style={styles.background}>
+                    {this.state.Error}
+                </LinearGradient>
 
-        );
+            );
+        }
+
     }
 }
 
@@ -127,5 +130,9 @@ const styles = StyleSheet.create({
   },
   item: {
       padding: 10,
-  }
+  },
+  error: {
+    backgroundColor: 'transparent',
+    alignSelf: 'center',
+  },
 });

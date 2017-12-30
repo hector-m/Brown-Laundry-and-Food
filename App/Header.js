@@ -26,7 +26,7 @@ const Header = (props) => (
     <TextInput
       style={styles.input}
       placeholder="Search..."
-      onChangeText={(text) => console.log('searching for ', text)}
+      //onChangeText={(text) => console.log('searching for ', text)}
     />
   </View>
 );

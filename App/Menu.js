@@ -4,12 +4,21 @@ import {
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
+  ScrollView
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import Eaterie from './Eaterie';
+import MenuDisplay from './MenuDisplay';
 
-export default class Eateries extends Component<{}> {
+export default class Menu extends Component<{}> {
+    constructor(props) {
+        super(props);
+        this.state = {
+            Menu: null,
+            key: this.props.navigation.state.params.key,
+            Error: null,
+        }
+    }
     static navigationOptions = ({ navigation }) => ({
         title: `${navigation.state.params.name} Menu`,
         headerTintColor: '#BDB9B7',
@@ -18,26 +27,57 @@ export default class Eateries extends Component<{}> {
         }
     });
 
-    // componentDidMount() {
-    //     let key = this.props.navigation.state.params.key;
-    //     this.setState({loading : true});
-    //     return fetch('https://api.students.brown.edu/laundry/rooms/'+ key +'/machines?get_status=true&client_id=8c6cde9c-9053-4e91-886a-bfe3efb3d340')
-    //         .then((response) => response.json())
-    //         .then((responseJson) => {
-    //             this.setState({loading : false, refreshing : false});
-    //             return responseJson;
-    //         })
-    //         .catch((error) => {
-    //             console.error(error);
-    //         });
-    // }
+    componentWillMount() {
+        this.setState({loading : true});
+        let date = new Date()
+        let month = date.getMonth();
+        return fetch('http://legacy.cafebonappetit.com/api/2/menus?cafe=' + this.state.key + '&date=' + date.getFullYear() + '-' + month + '-' + date.getDate())
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.getMenuData(responseJson);
+                this.setState({loading : false, refreshing : false});
+                return responseJson;
+            })
+            .catch((error) => {
+                this.setState({ Error:
+                    <Image source={require('../img/error.png')} style={styles.error}/>
+                });
+            });
+    }
+
+    getMenuData(json) {
+        let display = [];
+        dayMenu = json["days"]["0"].cafes[this.state.key].dayparts["0"];
+
+
+        for (let i = 0; i < dayMenu.length; i++) {
+            display.push(
+                <MenuDisplay key={i} name={dayMenu[i]["label"]} items={json["items"]} food={dayMenu[i]["stations"]}/>
+            );
+        }
+        this.setState({Menu: display});
+    }
+
+
+
 
     render() {
-        return (
-            <LinearGradient colors={['#9A8478', '#1E130C']} locations={[0,0.55]} style={styles.background}>
+        if (this.state.Error == null) {
+            return (
+                <View style={styles.background}>
+                    <ScrollView>
+                    {this.state.Menu}
+                    </ScrollView>
+                </View>
+            );
+        } else {
+            return (
+                <View style={styles.background}>
+                    {this.state.Error}
+                </View>
+            );
+        }
 
-            </LinearGradient>
-        );
     }
 }
 
@@ -46,19 +86,10 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     justifyContent: 'space-around',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#daccb6',
   },
-  row: {
-      height: 201,
-      flex: 1,
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-
+  error: {
+    backgroundColor: 'transparent',
+    alignSelf: 'center',
   },
-  borders: {
-      borderTopWidth: 1,
-      borderTopColor: '#95989A',
-      borderBottomWidth: 1,
-      borderBottomColor: '#95989A'
-  }
 });
