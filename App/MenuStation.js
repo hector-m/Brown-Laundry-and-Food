@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
       fontSize: 20,
       textAlign: 'center',
       marginTop: 10,
-      marginBottom: 10,
+      //marginBottom: 10,
       color: '#231f20',
       backgroundColor: 'transparent',
       alignSelf: "stretch",
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     label: {
       fontSize: 14,
       marginTop: 10,
-      marginBottom: 10,
+      //marginBottom: 10,
       color: '#231f20',
     },
 });

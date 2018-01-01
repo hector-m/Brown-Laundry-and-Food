@@ -15,7 +15,7 @@ import {
 import Eateries from './App/Eateries';
 import Home from './App/Home';
 import Laundry from './App/Laundry';
-import Menu from './App/Menu';
+import FoodMenu from './App/FoodMenu';
 import Room from './App/Room';
 import { StackNavigator, } from 'react-navigation';
 
@@ -25,7 +25,7 @@ const MyApp = StackNavigator({
   Home: {screen: Home},
   Eateries: {screen: Eateries},
   Laundry: {screen: Laundry},
-  Menu: {screen: Menu},
+  FoodMenu: {screen: FoodMenu},
   Room: {screen: Room},
 });
 

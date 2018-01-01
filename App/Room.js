@@ -5,7 +5,8 @@ import {
   Text,
   View,
   Image,
-  ScrollView
+  ScrollView,
+  ActivityIndicator
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MachinesDisplay from './MachinesDisplay';
@@ -14,7 +15,7 @@ export default class Room extends Component<{}> {
     constructor(props) {
         super(props);
         this.state = {
-            loading: false,
+            loading: true,
             Washers: [],
             Dryers: [],
             Error: null,
@@ -80,6 +81,15 @@ export default class Room extends Component<{}> {
 
 
     render() {
+
+        if (this.state.loading) {
+          return (
+            <LinearGradient colors={['#9A8478', '#1E130C']} locations={[0,0.55]} style={styles.background}>
+                <ActivityIndicator size="large" color="#9A8478"/>
+            </LinearGradient>
+          );
+        }
+
         if (this.state.Error == null) {
             return (
                 <LinearGradient colors={['#9A8478', '#1E130C']} locations={[0,0.55]} style={styles.background}>

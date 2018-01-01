@@ -18,7 +18,7 @@ export default class Home extends Component<{}> {
   static navigationOptions = ({ navigation }) => ({
       //headerTintColor: '#BDB9B7',
       headerStyle: {
-        backgroundColor: '#9A8478',
+        backgroundColor: '#1E130C',
           shadowColor: 'transparent',
           elevation:0,
           borderBottomWidth: 0
@@ -28,7 +28,7 @@ export default class Home extends Component<{}> {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <LinearGradient colors={['#9A8478', '#1E130C']} locations={[0,0.55]} style={styles.background}>
+      <LinearGradient colors={['#1E130C', '#1E130C']} locations={[.5,1]} style={styles.background}>
         <TouchableOpacity onPress={() => navigate('Eateries')}>
             <View style={styles.box}>
                 <Image source={require('../img/spoon.png')} style={styles.stretch}/>

@@ -7,9 +7,13 @@
 		"test": "jest"
 	},
 	"dependencies": {
+		"moment": "^2.20.1",
 		"react": "16.0.0",
 		"react-native": "0.50.3",
+		"react-native-dropdown-menu": "^1.1.0",
+		"react-native-elements": "^0.18.5",
 		"react-native-linear-gradient": "git+https://github.com/react-native-community/react-native-linear-gradient.git",
+		"react-native-vector-icons": "^4.4.3",
 		"react-navigation": "^1.0.0-beta.21"
 	},
 	"devDependencies": {
