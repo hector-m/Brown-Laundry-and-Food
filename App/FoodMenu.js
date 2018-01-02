@@ -25,6 +25,7 @@ export default class Menu extends Component<{}> {
             loading : true,
             date: day,
             dayOfWeek: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thurday", "Friday", "Saturday"],
+            selected: 0,
         }
         this.refreshData = this.refreshData.bind(this);
     }
@@ -86,7 +87,7 @@ export default class Menu extends Component<{}> {
     }
 
     refreshData(alphaday) {
-        this.setState({loading : true});
+        this.setState({loading : true, selected: alphaday});
         let month = this.state.date.getMonth() + 1;
         if (month < 10) {
             month = '0' + month;
@@ -95,7 +96,6 @@ export default class Menu extends Component<{}> {
         if (day < 10) {
             day = '0' + day;
         }
-        console.log(alphaday);
         return fetch('http://legacy.cafebonappetit.com/api/2/menus?cafe=' + this.state.key + '&date=' + this.state.date.getFullYear() + '-' + month + '-' + day)
             .then((response) => response.json())
             .then((responseJson) => {
@@ -136,7 +136,9 @@ export default class Menu extends Component<{}> {
                                   selectItemColor={"red"}
                                   data={data}
                                   maxHeight={410}
-                                  handler={(selection, row) => this.refreshData(row)} >
+                                  handler={(selection, row) => this.refreshData(row)}
+                                  selected={this.state.selected}
+                                  >
                   <ScrollView>
                   {this.state.Menu}
                   </ScrollView>
