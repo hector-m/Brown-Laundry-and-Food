@@ -6,7 +6,8 @@ import {
   View,
   Image,
   ScrollView,
-  ActivityIndicator
+  ActivityIndicator,
+  RefreshControl
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MachinesDisplay from './MachinesDisplay';
@@ -74,7 +75,22 @@ export default class Room extends Component<{}> {
     }
 
 
-
+    _onRefresh() {
+        let key = this.props.navigation.state.params.key;
+        this.setState({loading : true});
+        return fetch('https://api.students.brown.edu/laundry/rooms/'+ key +'/machines?get_status=true&client_id=8c6cde9c-9053-4e91-886a-bfe3efb3d340')
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.getRoomData(responseJson);
+                this.setState({loading : false, refreshing : false});
+                return responseJson;
+            })
+            .catch((error) => {
+                this.setState({ Error:
+                    <Image source={require('../img/error.png')} style={styles.error}/>
+                });
+            });
+    }
 
 
 
@@ -93,11 +109,17 @@ export default class Room extends Component<{}> {
         if (this.state.Error == null) {
             return (
                 <LinearGradient colors={['#9A8478', '#1E130C']} locations={[0,0.55]} style={styles.background}>
-                    <ScrollView>
-                    <Text style={styles.label}>Washers</Text>
-                    <MachinesDisplay machines={this.state.Washers} />
-                    <Text style={styles.label}>Dryers</Text>
-                    <MachinesDisplay machines={this.state.Dryers} />
+                    <ScrollView
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.loading}
+                                onRefresh={this._onRefresh.bind(this)}
+                            />}
+                    >
+                        <Text style={styles.label}>Washers</Text>
+                        <MachinesDisplay machines={this.state.Washers} />
+                        <Text style={styles.label}>Dryers</Text>
+                        <MachinesDisplay machines={this.state.Dryers} />
                     </ ScrollView>
                 </LinearGradient>
             );

@@ -23,8 +23,10 @@ export default class Home extends Component<{}> {
           elevation:0,
           borderBottomWidth: 0
 
-      }
+      },
+      headerBackTitle: 'Home'
   });
+
   render() {
     const { navigate } = this.props.navigation;
     return (

@@ -132,7 +132,7 @@ export default class Menu extends Component<{}> {
                 <View style={styles.background}>
                 <DropdownMenu style={{flex: 1,}}
                                   bgColor={"#1E130C"}
-                                  tintColor={"#BDB9B7"}
+                                  //tintColor={"#BDB9B7"}
                                   selectItemColor={"red"}
                                   data={data}
                                   maxHeight={410}
