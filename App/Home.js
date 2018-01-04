@@ -6,6 +6,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  PushNotificationIOS,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 

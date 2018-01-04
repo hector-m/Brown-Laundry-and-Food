@@ -64,6 +64,7 @@ export default class Room extends Component<{}> {
     			if (json["results"][i]["avail"]) {	// if machine not in use
     				availWashers = availWashers.concat(Array(machine[0]).fill(timeRemaining + 100));
     				availDryers = availDryers.concat(Array(machine[1]).fill(timeRemaining + 100));
+                    console.log(availWashers);
     			} else {
     				unavailWashers = unavailWashers.concat(Array(machine[0]).fill(timeRemaining));
     				unavailDryers = unavailDryers.concat(Array(machine[1]).fill(timeRemaining));
@@ -116,10 +117,12 @@ export default class Room extends Component<{}> {
                                 onRefresh={this._onRefresh.bind(this)}
                             />}
                     >
+                        <Text style={styles.notify}>*click on your running machine to set notification</Text>
+
                         <Text style={styles.label}>Washers</Text>
-                        <MachinesDisplay machines={this.state.Washers} />
+                        <MachinesDisplay type={"washer"} room={this.props.navigation.state.params.name} machines={this.state.Washers} />
                         <Text style={styles.label}>Dryers</Text>
-                        <MachinesDisplay machines={this.state.Dryers} />
+                        <MachinesDisplay type={"dryer"} room={this.props.navigation.state.params.name} machines={this.state.Dryers} />
                     </ ScrollView>
                 </LinearGradient>
             );
@@ -158,6 +161,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     color: '#BDB9B7',
+    backgroundColor: 'transparent',
+  },
+  notify: {
+    fontSize: 14,
+    fontStyle: 'italic',
+    textAlign: 'center',
+    marginTop: 10,
+    marginBottom: 10,
+    color: '#1E130C',
     backgroundColor: 'transparent',
   },
   item: {

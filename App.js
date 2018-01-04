@@ -11,6 +11,7 @@ import {
   Text,
   View,
   StatusBar,
+  PushNotificationIOS,
 } from 'react-native';
 import Eateries from './App/Eateries';
 import Home from './App/Home';
@@ -35,4 +36,11 @@ export default class App extends Component<{}> {
       <MyApp />
     );
   }
+
+    componentWillMount(){
+        PushNotificationIOS.addEventListener('register', (token) => console.log('TOKEN', token))
+        PushNotificationIOS.addEventListener('notification', (notification) => console.log('Notification', notification, "APP state", AppStateIOS.currentState))
+        // you could check the app state to respond differently to push notifications depending on if the app is running in the background or is currently active.
+        PushNotificationIOS.requestPermissions();
+    }
 }
