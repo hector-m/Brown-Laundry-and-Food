@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView,
   ActivityIndicator,
-  RefreshControl
+  RefreshControl,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MachinesDisplay from './MachinesDisplay';
@@ -62,12 +62,12 @@ export default class Room extends Component<{}> {
     			var machine = validMachines[machineType];
     			var timeRemaining = json["results"][i]["time_remaining"];
     			if (json["results"][i]["avail"]) {	// if machine not in use
-    				availWashers = availWashers.concat(Array(machine[0]).fill(timeRemaining + 100));
-    				availDryers = availDryers.concat(Array(machine[1]).fill(timeRemaining + 100));
-                    console.log(availWashers);
+    				availWashers = availWashers.concat(Array(machine[0]).fill({ time: timeRemaining + 100, id: json["results"][i]["id"]}));
+    				availDryers = availDryers.concat(Array(machine[1]).fill({ time: timeRemaining + 100, id: json["results"][i]["id"]}));
+
     			} else {
-    				unavailWashers = unavailWashers.concat(Array(machine[0]).fill(timeRemaining));
-    				unavailDryers = unavailDryers.concat(Array(machine[1]).fill(timeRemaining));
+    				unavailWashers = unavailWashers.concat(Array(machine[0]).fill({ time: timeRemaining, id: json["results"][i]["id"]}));
+    				unavailDryers = unavailDryers.concat(Array(machine[1]).fill({ time: timeRemaining, id: json["results"][i]["id"]}));
     			}
     		}
     	}

@@ -18,6 +18,7 @@ import Home from './App/Home';
 import Laundry from './App/Laundry';
 import FoodMenu from './App/FoodMenu';
 import Room from './App/Room';
+import MyMachines from './App/MyMachines';
 import { StackNavigator, } from 'react-navigation';
 
 StatusBar.setBarStyle('light-content', true);
@@ -28,6 +29,7 @@ const MyApp = StackNavigator({
   Laundry: {screen: Laundry},
   FoodMenu: {screen: FoodMenu},
   Room: {screen: Room},
+  MyMachines: {screen: MyMachines},
 });
 
 export default class App extends Component<{}> {

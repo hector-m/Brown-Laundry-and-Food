@@ -7,10 +7,13 @@ import {
   ListView,
   TextInput,
   TouchableOpacity,
-  FlatList
+  FlatList,
+  PushNotificationIOS,
+  Image
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { SearchBar } from "react-native-elements";
+import LaundrySign from './LaundrySign';
 
 
 export default class Laundry extends Component<{}> {
@@ -23,16 +26,20 @@ export default class Laundry extends Component<{}> {
       search: '',
       rooms: rooms,
     };
-
   }
 
-    static navigationOptions = {
-    title: 'Laundry Rooms',
-    headerTintColor: '#BDB9B7',
-    headerStyle: {
-       backgroundColor: '#1E130C',
-       },
-    headerBackTitle: 'Rooms'
+    static navigationOptions = ({ navigation }) => {
+        const { params = {} } = navigation.state;
+        const { navigate } = navigation;
+        return {
+            title: 'Laundry Rooms',
+            headerTintColor: '#BDB9B7',
+            headerStyle: {
+                backgroundColor: '#1E130C',
+            },
+            headerBackTitle: 'Rooms',
+            headerRight : <TouchableOpacity onPress={() => navigate('MyMachines')}><LaundrySign /></TouchableOpacity>,
+        }
     };
 
     textChange(event) {
