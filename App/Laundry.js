@@ -48,6 +48,10 @@ export default class Laundry extends Component<{}> {
         this.setState({search: event, dataSource: filteredData});
     }
 
+    clearText() {
+        this.setState({search: '', dataSource: Object.keys(this.state.rooms)});
+    }
+
   render() {
       const { navigate } = this.props.navigation;
     return (
@@ -57,14 +61,18 @@ export default class Laundry extends Component<{}> {
             renderItem={ ({item}) => <TouchableOpacity onPress={() => navigate('Room',{name: item, key: this.state.rooms[item]})}><View><Text style={styles.label}>{item}</Text></View></TouchableOpacity>}
             keyExtractor={ (item, index) => index}
             ItemSeparatorComponent={() => <View style={styles.separator} />}
-            ListHeaderComponent={<View style={styles.container}>
-                            <TextInput
-                              style={styles.input}
-                              placeholder="Search Room..."
-                              onChangeText={this.textChange.bind(this)}
-                              value={this.state.search}
-                            />
-                          </View>}
+            ListHeaderComponent={
+                            <SearchBar
+                                containerStyle={styles.container}
+                                inputStyle={styles.input}
+                                placeholderTextColor={'#8E8E93'}
+                                round
+                                icon={{color: '#8E8E93'}}
+                                clearIcon={{padding: 10, color: '#8E8E93'}}
+                                onChangeText={this.textChange.bind(this)}
+                                onClearText={this.clearText.bind(this)}
+                                placeholder='Search Room...' />
+                          }
         />
       </LinearGradient>
     );
@@ -80,7 +88,6 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 17,
-    //textAlign: 'center',
     marginTop: 10,
     marginBottom: 10,
     marginLeft: 15,
@@ -94,7 +101,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 8,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#1E130C',
@@ -102,10 +108,8 @@ const styles = StyleSheet.create({
   input: {
     height: 30,
     flex: 1,
-    color: '#8E8E93',
-    paddingHorizontal: 8,
+    color: '#BDB9B7',
     fontSize: 15,
     backgroundColor: '#2E241F',
-    borderRadius: 10,
   },
 });

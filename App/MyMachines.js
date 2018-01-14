@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MyMachinesDisplay from './MyMachinesDisplay';
+import PushNotification from 'react-native-push-notification';
 
 export default class MyMachines extends Component<{}> {
     constructor(props) {
@@ -34,8 +35,19 @@ export default class MyMachines extends Component<{}> {
         }
     };
 
+    static _interval;
+
     componentWillMount() {
-        PushNotificationIOS.getScheduledLocalNotifications( (test) => this.organizeMachines(test));
+        this._interval = setInterval(() => {
+            this.setState(() => {
+                PushNotificationIOS.getScheduledLocalNotifications( (test) => this.organizeMachines(test));
+                return { unseen: "does not display"}
+            });
+        }, 10*1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this._interval);
     }
 
     organizeMachines(machines) {

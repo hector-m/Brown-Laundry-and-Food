@@ -20,6 +20,7 @@ export default class MyMachines extends Component<{}> {
 
     componentDidMount() {
         this.setState({loading: false});
+
     }
 
     _findTimeDiff(currentTime, alarmTime) {
