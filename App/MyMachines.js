@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MyMachinesDisplay from './MyMachinesDisplay';
-import PushNotification from 'react-native-push-notification';
 
 export default class MyMachines extends Component<{}> {
     constructor(props) {
@@ -43,7 +42,7 @@ export default class MyMachines extends Component<{}> {
                 PushNotificationIOS.getScheduledLocalNotifications( (test) => this.organizeMachines(test));
                 return { unseen: "does not display"}
             });
-        }, 10*1000);
+        }, 1*1000);
     }
 
     componentWillUnmount() {
@@ -76,7 +75,10 @@ export default class MyMachines extends Component<{}> {
         } else if (this.state.machines.length == 0){
             return (
                 <LinearGradient colors={['#9A8478', '#1E130C']} locations={[0,0.55]} style={styles.background}>
-                    <Image source={require('../img/error.png')} style={styles.error}/>
+                    <View style={styles.error}>
+                        <Image style={{marginLeft: 10}} source={require('../img/noMachines.png')}/>
+                        <Text style={styles.noMachines}>You have no machines running</Text>
+                    </View>
                 </LinearGradient>
             );
         } else {
@@ -106,5 +108,13 @@ const styles = StyleSheet.create({
   error: {
     backgroundColor: 'transparent',
     alignSelf: 'center',
+    paddingBottom: 100,
   },
+  noMachines: {
+    color: "#BDB9B7",
+    fontSize: 20,
+    fontWeight: '600',
+    backgroundColor: 'transparent',
+    paddingTop: 10,
+  }
 });

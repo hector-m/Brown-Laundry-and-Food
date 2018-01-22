@@ -49,9 +49,9 @@ export default class MyMachines extends Component<{}> {
 						data={this.state.machines}
 						renderItem={ (data, rowMap) => (
 								<View style={styles.row}>
-                                    <Text style={{fontSize: 20}}>{this._findTimeDiff(now,data.item["fireDate"])} min</Text>
-                                    <View style={{alignItems: 'center'}}>
-                                        <Text>{data.item["userInfo"]["room"].toUpperCase()}</Text>
+                                    <Text style={{textAlign: 'left',fontSize: 20, width: 65}}>{this._findTimeDiff(now,data.item["fireDate"])} min</Text>
+                                    <View style={{alignItems: 'flex-start', width: 200, paddingVertical: 5}}>
+                                        <Text style={{fontSize: 18}}>{data.item["userInfo"]["room"].toUpperCase()}</Text>
     									<Text>{data.item["userInfo"]["type"].toUpperCase()}</Text>
                                     </View>
 								</View>
@@ -66,6 +66,8 @@ export default class MyMachines extends Component<{}> {
 						)}
 						disableRightSwipe={true}
 						rightOpenValue={-75}
+                        previewRowKey={0}
+                        ItemSeparatorComponent={() => <View style={styles.separator} />}
 					/>
           );
     }
@@ -73,12 +75,6 @@ export default class MyMachines extends Component<{}> {
 
 
 const styles = StyleSheet.create({
-    label: {
-        fontSize: 17,
-        textAlign: 'center',
-        color: '#BDB9B7',
-        backgroundColor: 'transparent',
-    },
     background: {
         flex: 1,
         justifyContent: 'space-around',
@@ -92,16 +88,21 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         padding: 15
     },
-    standalone: {
-        marginTop: 30,
-        marginBottom: 30,
-    },
     row: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#daccb6',
         justifyContent: 'space-around',
-        height: 50,
+        minHeight: 75,
+    },
+    separator: {
+      flex: 1,
+      height: 0.5,
+      backgroundColor: '#8E8E8E',
+      borderRightColor: '#daccb6',
+      borderRightWidth: 20,
+      borderLeftColor: '#daccb6',
+      borderLeftWidth: 20,
     },
 });

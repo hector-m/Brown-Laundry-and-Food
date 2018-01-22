@@ -104,6 +104,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#1E130C',
+    borderTopWidth: 0,
+    borderBottomWidth: 0,
   },
   input: {
     height: 30,

@@ -47,6 +47,7 @@ export default class Room extends Component<{}> {
                 this.setState({ Error:
                     <Image source={require('../img/error.png')} style={styles.error}/>
                 });
+                this.setState({loading : false, refreshing : false});
             });
     }
 
@@ -90,6 +91,7 @@ export default class Room extends Component<{}> {
                 this.setState({ Error:
                     <Image source={require('../img/error.png')} style={styles.error}/>
                 });
+                this.setState({loading : false, refreshing : false});
             });
     }
 
@@ -128,10 +130,18 @@ export default class Room extends Component<{}> {
             );
         } else {
             return (
-                <LinearGradient colors={['#9A8478', '#1E130C']} locations={[0,0.55]} style={styles.background}>
-                    {this.state.Error}
-                </LinearGradient>
-
+                <ScrollView
+                    contentContainerStyle={styles.background}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.loading}
+                            onRefresh={this._onRefresh.bind(this)}
+                        />}
+                >
+                    <LinearGradient colors={['#9A8478', '#1E130C']} locations={[0,0.55]} style={styles.background}>
+                        {this.state.Error}
+                    </LinearGradient>
+                </ ScrollView>
             );
         }
 
