@@ -25,7 +25,7 @@ export default class MachinesDisplay extends Component<{}> {
                         <Text style={styles.label}>Available</Text>
                     </View>
                 );
-            } else {
+            } else if (machines[i]["time"] != 0) {
                 display.push(
                         this.displayUnavailable(machines, i)
                 );

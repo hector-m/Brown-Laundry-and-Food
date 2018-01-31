@@ -25,7 +25,7 @@ export default class MyMachines extends Component<{}> {
 
     _findTimeDiff(currentTime, alarmTime) {
         var diff = Math.abs(new Date(alarmTime) - currentTime);
-        var minutes = Math.floor((diff/1000)/60);
+        var minutes = Math.ceil((diff/1000)/60);
         return minutes.toString();
     }
 
@@ -56,7 +56,7 @@ export default class MyMachines extends Component<{}> {
                                     </View>
 								</View>
 						)}
-                        keyExtractor={ (item, index) => index}
+                        keyExtractor={ (item, index) => index.toString()}
 						renderHiddenItem={ (data, rowMap) => (
 							<View style={styles.rowBack}>
 								<TouchableOpacity onPress={ _ => this._deleteNote(data, rowMap)}>
@@ -66,7 +66,7 @@ export default class MyMachines extends Component<{}> {
 						)}
 						disableRightSwipe={true}
 						rightOpenValue={-75}
-                        previewRowKey={0}
+                        previewRowKey={'0'}
                         ItemSeparatorComponent={() => <View style={styles.separator} />}
 					/>
           );
